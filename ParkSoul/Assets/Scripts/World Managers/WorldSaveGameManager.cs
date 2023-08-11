@@ -12,7 +12,6 @@ namespace PS
         [SerializeField] int worldSceneIndex = 1;
         private void Awake()
         {
-            // 1개의 인스턴스만 존재할 수 있으므로 다른것이 존재하는 경우 파괴.
             if(instance ==null)
             {
                 instance = this;
