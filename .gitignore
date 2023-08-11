@@ -9,7 +9,13 @@ ParkSoul/[Bb]uild/
 ParkSoul/[Bb]uilds/
 ParkSoul/[Ll]ogs/
 ParkSoul/[Uu]ser[Ss]ettings/
-
+ParkSoul_clone_0/[Ll]ibrary/
+ParkSoul_clone_0/[Tt]emp/
+ParkSoul_clone_0/[Oo]bj/
+ParkSoul_clone_0/[Bb]uild/
+ParkSoul_clone_0/[Bb]uilds/
+ParkSoul_clone_0/[Ll]ogs/
+ParkSoul_clone_0/[Uu]ser[Ss]ettings/
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 ParkSoul/[Mm]emoryCaptures/
