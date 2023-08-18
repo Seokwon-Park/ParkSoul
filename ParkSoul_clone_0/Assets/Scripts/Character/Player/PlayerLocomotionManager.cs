@@ -8,16 +8,19 @@ namespace PS
     {
         PlayerManager player;
 
-        public float verticalMovement;
-        public float horizontalMovement;
-        public float moveAmount;
+        [HideInInspector]public float verticalMovement;
+        [HideInInspector]public float horizontalMovement;
+        [HideInInspector] public float moveAmount;
 
+        [Header("Movement Settings")]
         private Vector3 moveDirection;
         private Vector3 targetRotationDirection;
         [SerializeField] float walkingSpeed = 2;
         [SerializeField] float runningSpeed = 5;
         [SerializeField] float rotationSpeed = 15;
 
+        [Header("Dodge")]
+        private Vector3 rollDirection;
         protected override void Awake()
         {
             base.Awake();
@@ -105,6 +108,33 @@ namespace PS
             Quaternion newRotation = Quaternion.LookRotation(targetRotationDirection);
             Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
             transform.rotation = targetRotation;
+        }
+
+        public void AttemptToPerformDodge()
+        {
+            //if(player.isPerformingAction)
+            //{
+            //    return;
+            //}
+            // if we are moving when we attempt to dodge. we perform a roll
+            if (PlayerInputManager.instance.moveAmount > 0)
+            {
+                rollDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
+                rollDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontalInput;
+                rollDirection.y = 0;
+                rollDirection.Normalize();
+
+                Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+                player.transform.rotation = playerRotation;
+
+                // perform a roll animation
+                player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
+            }
+            else
+            {
+                // perform a back step
+            }
+
         }
     }
 }
