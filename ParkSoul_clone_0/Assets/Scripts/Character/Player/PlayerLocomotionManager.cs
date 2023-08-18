@@ -53,7 +53,7 @@ namespace PS
         }
 
         public void HandleAllMovement()
-        {
+        {            
             // GROUNDED MOVEMENT
             HandleGroundedMovement();
             HandleRotation();
@@ -72,6 +72,9 @@ namespace PS
         private void HandleGroundedMovement()
         {
             GetMovementValues();
+
+            if (!player.canMove)
+                return;
             // movement는 movement input과 camera 관점 기반
             moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
             moveDirection = moveDirection + PlayerCamera.instance.transform.right * horizontalMovement;
@@ -94,6 +97,8 @@ namespace PS
 
         private void HandleRotation()
         {
+            if (!player.canRotate)
+                return;
             targetRotationDirection = Vector3.zero;
             targetRotationDirection = PlayerCamera.instance.transform.forward * verticalMovement;
             targetRotationDirection = targetRotationDirection + PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
@@ -112,10 +117,10 @@ namespace PS
 
         public void AttemptToPerformDodge()
         {
-            //if(player.isPerformingAction)
-            //{
-            //    return;
-            //}
+            if(player.isPerformingAction)
+            {
+                return;
+            }
             // if we are moving when we attempt to dodge. we perform a roll
             if (PlayerInputManager.instance.moveAmount > 0)
             {
